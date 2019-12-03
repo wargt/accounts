@@ -4,12 +4,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "gh-pages": "^2.1.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
@@ -45,7 +48,9 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {
-        "overrideBrowserslist": ["last 33 versions"]
+        "overrideBrowserslist": [
+          "last 33 versions"
+        ]
       }
     }
   },
