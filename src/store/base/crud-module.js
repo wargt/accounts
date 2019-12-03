@@ -44,6 +44,8 @@ export default class CRUDModule {
     return {
 
       fetchItems ({ commit }, items) {
+        commit('setItems', [])
+
         return new Promise(resolve => {
           setTimeout(() => {
             commit('setItems', items)

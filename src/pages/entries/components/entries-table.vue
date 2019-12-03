@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <title-and-link
-      title="Проводки по счету"
+      title="Мои операции"
       link="+ Добавить операцию"
       @linkClicked="onAddClicked"
     />
@@ -9,13 +9,15 @@
     <v-table
       :columns="entryColumns"
       :rows="entryRows"
+      :activeRowIndex="activeRowIndex"
       @iconClicked="onIconClicked"
+      @rowClicked="onRowClicked"
     />
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import { forEach } from 'lodash'
   import vTable from '@/components/v-table'
   import EntryModel from '@/models/entry'
@@ -29,11 +31,21 @@
       'title-and-link': TitleAndLink,
       'v-table': vTable,
     },
+    mounted () {
+      this.fetchEntries()
+    },
     computed: mapState({
 
-      // выбранный счет
-      activeAccountItem (state) {
-        return state.accounts.activeAccount
+      // активная проводка
+      ...mapGetters('entries', ['activeEntry']),
+
+      activeRowIndex () {
+
+        if (!this.activeEntry) {
+          return null
+        }
+
+        return this.entryRows.findIndex(item => item.id === this.activeEntry.id)
       },
 
       // колонки таблицы
@@ -68,6 +80,15 @@
       }
     }),
     methods: {
+
+      async fetchEntries () {
+        this.$store.commit('changeLoader', true)
+
+        await this.$store.dispatch('entries/fetchItems')
+
+        this.$store.commit('changeLoader', false)
+      },
+
       // клик по иконке
       onIconClicked ({ icon, row }) {
         const { type } = icon
@@ -134,20 +155,30 @@
       },
 
       onAddClicked () {
-        const { AcctNum = null } = this.activeAccountItem || {}
 
         this.$globalEvents.$emit('openPopup', {
           title: 'Создание проводки',
           component: EditModelData,
           data: {
             model: EntryModel,
-            onSaveClicked: this.updateAccount,
-            itemData: {
-              AcctNumCr: AcctNum
-            }
+            onSaveClicked: this.updateAccount
           }
         })
-      }
+      },
+
+      // кликнули на строку таблицы
+      onRowClicked ({ row }) {
+
+        if (this.activeEntry && this.activeEntry.id === row.id) {
+
+          this.$store.commit('entries/changeActiveEntry', null)
+
+        } else {
+
+          this.$store.commit('entries/changeActiveEntry', row.id)
+
+        }
+      },
     }
   }
 </script>

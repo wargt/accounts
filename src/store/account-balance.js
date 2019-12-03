@@ -9,7 +9,7 @@ export default class AccountBalance extends CRUDmodule {
     return {
       ...actions,
       // баланс счетов на конкретную дату
-      fetchItems (args, opDate) {
+      filterItems (args, opDate) {
         const items = accountBalance.filter(item => item.OpDate === opDate)
 
         return actions.fetchItems(args, items)

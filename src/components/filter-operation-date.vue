@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="filter__block flex flex-vmiddle">
     <div class="flex-auto">
-      <text-main class="filter__title" text="Фильтр по дате операции:" />
+      <text-main class="filter__title" text="Баланс на дату операции:" />
     </div>
     <div class="flex-item select__wrp">
       <select-form

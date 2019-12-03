@@ -2,7 +2,7 @@
   <div>
     <title-and-link
       title="Проводки по операционным дням"
-      link="+ Добавить проводку"
+      link="+ Добавить операцию"
       @linkClicked="onAddClicked"
     />
 

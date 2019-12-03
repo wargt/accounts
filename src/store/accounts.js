@@ -31,6 +31,14 @@ export default class Accounts extends CRUDmodule {
         commit('changeActiveAccount', null)
 
         return actions.fetchItems(args, accounts)
+      },
+
+      filterItems (args, { AcctNumCr, AcctNumDB }) {
+        let items = accounts.slice()
+
+        items = items.filter(item => item.AcctNum === AcctNumCr || item.AcctNum === AcctNumDB)
+
+        return actions.fetchItems.call(this, args, items)
       }
     }
   }

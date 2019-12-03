@@ -54,7 +54,7 @@
 
         this.$store.commit('changeLoader', true)
 
-        await this.$store.dispatch('accountBalance/fetchItems', OpDate)
+        await this.$store.dispatch('accountBalance/filterItems', OpDate)
 
         this.$store.commit('changeLoader', false)
       }
