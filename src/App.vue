@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="flex flex-column">
+    <v-header class="flex-auto" />
+    <div class="flex-item">
+      <loader v-show="isLoading" />
+      <v-popup />
+      <v-confirm />
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import '@/assets/css/main.sass'
+import '@/assets/css/flex.css'
+import vHeader from '@/components/v-header'
+import Loader from '@/components/loader'
+import vPopup from '@/components/v-popup'
+import vConfirm from '@/components/v-confirm'
+import { mapState } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    'v-header': vHeader,
+    'v-popup': vPopup,
+    'v-confirm': vConfirm,
+    loader: Loader
+  },
+  computed: mapState({
+    isLoading (state) {
+      return state.showLoader
+    }
+  })
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass" scoped>
 </style>
