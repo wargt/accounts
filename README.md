@@ -1,4 +1,5 @@
-# testovoe-zadanie-accounts
+# [Тестовое задание](https://accounts.wargt.now.sh/)
+[Демо](https://accounts.wargt.now.sh/)
 
 ## Project setup
 ```
@@ -14,11 +15,3 @@ yarn serve
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
